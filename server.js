@@ -9,7 +9,7 @@ const port = args.port || process.env.PORT || 5000;
 
 // start an app server
 const server = app.listen(port, () => {
-    console.log("App listening on port %PORT% .replace('%PORT%, HTTP_PORT)")
+    console.log("App listening on port %PORT% .replace('%PORT%, port)")
 });
 
 // Default response for any other request
