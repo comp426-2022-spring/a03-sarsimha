@@ -145,3 +145,7 @@ app.get('/app/flip/call/heads', (req, res) => {
 app.get('/app/flip/call/tails', (req, res) => {
     res.status(200).json(flipACoin('tails'));
 })
+
+app.use(function(req, res){
+    res.status(404).type("text/plain").send('404 NOT FOUND')
+});
