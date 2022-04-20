@@ -2,7 +2,7 @@
   "name": "a03-sarsimha",
   "version": "1.0.0",
   "description": "creating an api",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "node server.js --port=5555"
   },

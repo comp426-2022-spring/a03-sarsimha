@@ -14,7 +14,7 @@ const server = app.listen(port, () => {
 
 // Default response for any other request
 app.use(function(req, res){
-    res.status(404).send('404 NOT FOUND')
+    res.status(404).type("text/plain").send('404 NOT FOUND')
 });
 
 app.get('/app/', (req, res) => {
@@ -130,8 +130,8 @@ function flipACoin(call) {
   
   }
 
-  //endpoint that returns json object with raw random number flips and summary 
-  app.get('/app/flips/:number', (req, res) => {
+//endpoint that returns json object with raw random number flips and summary 
+app.get('/app/flips/:number', (req, res) => {
 	let raw_flips = coinFlips(req.params.number);
     let sum_flips = countFlips(raw_flips)
     res.json({'raw': raw_flips, 'summary': sum_flips})
@@ -146,6 +146,3 @@ app.get('/app/flip/call/tails', (req, res) => {
     res.status(200).json(flipACoin('tails'));
 })
 
-app.use(function(req, res){
-    res.status(404).type("text/plain").send('404 NOT FOUND')
-});
