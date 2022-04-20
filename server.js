@@ -130,10 +130,18 @@ function flipACoin(call) {
   
   }
 
-  //api for number of flips
+  //endpoint that returns json object with raw random number flips and summary 
   app.get('/app/flips/:number', (req, res) => {
-	//Some
-	//expressions
-	//go
-	//here
+	let raw_flips = coinFlips(req.params.number);
+    let sum_flips = countFlips(raw_flips)
+    res.json({'raw': raw_flips, 'summary': sum_flips})
 });
+
+//return result of flip
+app.get('/app/flip/call/heads', (req, res) => {
+    res.status(200).json(flipACoin('heads'));
+})
+
+app.get('/app/flip/call/tails', (req, res) => {
+    res.status(200).json(flipACoin('tails'));
+})
