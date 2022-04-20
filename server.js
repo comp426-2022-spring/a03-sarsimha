@@ -1,32 +1,81 @@
-const http = require('http')
+const express = require('express')
+const app = express()
 
-//require express.js
-const express = require('express');
-const app = express();
+const args = require('minimist')(process.argv.slice(2))
+args['port']
+if (args.port == undefined) {
+  args.port = 5000
+}
+var HTTP_PORT = args.port;
 
-//require minimist 
-const args = require("minimist")(process.argv.slice(2));
-args["port"];
-const port = args.port || process.env.PORT || 5000;
-
-// start an app server
-const server = app.listen(port, () => {
-    console.log("App listening on port %PORT% .replace('%PORT%, port)")
+const server = app.listen(HTTP_PORT, () => {
+    console.log('App listening on port %PORT%'.replace('%PORT%',HTTP_PORT))
 });
 
-// Default response for any other request
-app.use(function(req, res){
-    res.status(404).type("text/plain").send('404 NOT FOUND')
-});
 
 app.get('/app/', (req, res) => {
-    // Respond with status 200
-        res.statusCode = 200;
-    // Respond with status message "OK"
-        res.statusMessage = 'OK';
-        res.writeHead( res.statusCode, { 'Content-Type' : 'text/plain' });
-        res.end(res.statusCode+ ' ' +res.statusMessage)
-    });
+  // Respond with status 200
+    res.statusCode = 200;
+  // Respond with status message "OK"
+    res.statusMessage = 'OK';
+    res.writeHead( res.statusCode, { 'Content-Type' : 'text/plain' });
+    res.end(res.statusCode+ ' ' +res.statusMessage)
+  });
+
+
+app.get('/app/flip/', (req, res) => {
+    var flip = coinFlip();
+    res.status(200).json({'flip' : flip})
+});
+
+app.get('/app/flips/:number', (req, res) => {
+	  var raw_flips = coinFlips(req.params.number);
+    var flips_summary = countFlips(raw_flips);
+    res.status(200).json({'raw' : raw_flips, 'summary' : flips_summary})
+});
+
+app.get('/app/flip/call/heads', (req, res) => {
+    res.status(200).json(flipACoin('heads'));
+});
+
+app.get('/app/flip/call/tails', (req, res) => {
+    res.status(200).json(flipACoin('tails'));
+});
+
+app.use(function(req, res){
+    res.status(404).send('404 NOT FOUND')
+    res.type("text/plain")
+});
+
+// const http = require('http')
+
+// //require express.js
+// const express = require('express');
+// const app = express();
+
+// //require minimist 
+// const args = require("minimist")(process.argv.slice(2));
+// args["port"];
+// const port = args.port || process.env.PORT || 5000;
+
+// // start an app server
+// const server = app.listen(port, () => {
+//     console.log("App listening on port %PORT% .replace('%PORT%, port)")
+// });
+
+// // Default response for any other request
+// app.use(function(req, res){
+//     res.status(404).type("text/plain").send('404 NOT FOUND')
+// });
+
+// app.get('/app/', (req, res) => {
+//     // Respond with status 200
+//         res.statusCode = 200;
+//     // Respond with status message "OK"
+//         res.statusMessage = 'OK';
+//         res.writeHead( res.statusCode, { 'Content-Type' : 'text/plain' });
+//         res.end(res.statusCode+ ' ' +res.statusMessage)
+//     });
 
 
 
@@ -132,24 +181,24 @@ function flipACoin(call) {
   
   }
 
-app.get('/app/flip/', (req, res) => {
-    let flip = coinFlip();
-    res.status(200).json({'flip' : flip})
-});
+// app.get('/app/flip/', (req, res) => {
+//     let flip = coinFlip();
+//     res.status(200).json({'flip' : flip})
+// });
 
-//endpoint that returns json object with raw random number flips and summary 
-app.get('/app/flips/:number', (req, res) => {
-	let raw_flips = coinFlips(req.params.number);
-    let sum_flips = countFlips(raw_flips)
-    res.json({'raw': raw_flips, 'summary': sum_flips})
-});
+// //endpoint that returns json object with raw random number flips and summary 
+// app.get('/app/flips/:number', (req, res) => {
+// 	let raw_flips = coinFlips(req.params.number);
+//     let sum_flips = countFlips(raw_flips)
+//     res.json({'raw': raw_flips, 'summary': sum_flips})
+// });
 
-//return result of flip
-app.get('/app/flip/call/heads', (req, res) => {
-    res.status(200).json(flipACoin('heads'));
-})
+// //return result of flip
+// app.get('/app/flip/call/heads', (req, res) => {
+//     res.status(200).json(flipACoin('heads'));
+// })
 
-app.get('/app/flip/call/tails', (req, res) => {
-    res.status(200).json(flipACoin('tails'));
-})
+// app.get('/app/flip/call/tails', (req, res) => {
+//     res.status(200).json(flipACoin('tails'));
+// })
 
