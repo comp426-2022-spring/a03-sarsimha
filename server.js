@@ -130,6 +130,11 @@ function flipACoin(call) {
   
   }
 
+app.get('/app/flip/', (req, res) => {
+    let flip = coinFlip();
+    res.status(200).json({'flip' : flip})
+});
+
 //endpoint that returns json object with raw random number flips and summary 
 app.get('/app/flips/:number', (req, res) => {
 	let raw_flips = coinFlips(req.params.number);
