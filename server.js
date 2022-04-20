@@ -125,3 +125,10 @@ function flipACoin(call) {
   
   }
 
+  //api for number of flips
+  app.get('/app/flips/:number', (req, res) => {
+	//Some
+	//expressions
+	//go
+	//here
+});
