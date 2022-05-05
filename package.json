@@ -1,0 +1,23 @@
+{
+  "name": "a03-sarsimha",
+  "version": "1.0.0",
+  "description": "creating an api",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js --port=5555"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/comp426-2022-spring/a03-sarsimha.git"
+  },
+  "author": "sarika simha",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/comp426-2022-spring/a03-sarsimha/issues"
+  },
+  "homepage": "https://github.com/comp426-2022-spring/a03-sarsimha#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "minimist": "^1.2.6"
+  }
+}
